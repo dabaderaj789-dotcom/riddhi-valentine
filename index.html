@@ -2,177 +2,193 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Rose Day 🌹</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy Rose Day Bubu</title>
 
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Segoe UI", cursive;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe Script', cursive;
+      background: linear-gradient(180deg, #ffb6c1, #ffd1dc);
     }
 
     body {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  padding: 20px 0;
-}
-
-    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
-      z-index: 2; /* above roses */
-      padding: 20px;
     }
 
-    .container img {
-      width: 320px;
-      max-width: 90%;
+    /* MAIN WRAPPER */
+    .main {
+      height: 100vh;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* CARD */
+    .card {
+      background: #fff0f5;
       border-radius: 20px;
+      padding: 15px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 90%;
+    }
+
+    .card img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+      border-radius: 15px;
     }
 
     h1 {
-      margin-top: 18px;
-      font-size: 2.2rem;
-      color: #b0003a;
-    }
-
-    p {
+      color: #b30059;
       margin-top: 10px;
-      font-size: 1.1rem;
-      color: #4a0c2e;
-      padding: 0 10px;
+      font-size: 28px;
     }
 
-    /* 🌹 Floating roses (BACKGROUND ONLY) */
-    .rose {
-      position: fixed;
-      bottom: -60px;
-      z-index: 1; /* behind content */
-      pointer-events: none;
-      animation: floatUp linear infinite;
-      opacity: 0.85;
+    .quote {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #5a0033;
+      line-height: 1.4;
     }
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-120vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* Music hint */
-    .tap-hint {
-      position: fixed;
-      bottom: 15px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #7a0030;
-      z-index: 3;
-      animation: blink 1.5s infinite;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0.4; }
-    }
-
-    /* Mute button */
-    .mute-btn {
+    /* MUSIC BUTTON */
+    .music-btn {
       position: fixed;
       top: 15px;
       right: 15px;
       background: white;
       border-radius: 50%;
-      padding: 10px 12px;
-      font-size: 20px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
       cursor: pointer;
-      z-index: 3;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    
-      @media (max-height: 750px) {
-  .container img {
-    width: 260px;   /* smaller image */
-  }
+      z-index: 10;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
 
-  h1 {
-    font-size: 1.8rem;
-  }
+    .hint {
+      position: fixed;
+      bottom: 15px;
+      font-size: 14px;
+      color: #800040;
+      z-index: 10;
+    }
 
-  p {
-    font-size: 1rem;
-  }
-}
+    /* ROSES */
+    .rose {
+      position: absolute;
+      bottom: -60px;
+      width: 40px;
+      opacity: 0.8;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-120vh);
+      }
+    }
+
+    /* MOBILE FIT FIX */
+    @media (max-width: 430px) {
+      .main {
+        transform: scale(0.92);
+        transform-origin: top center;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .quote {
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Background Music -->
+  <!-- MUSIC -->
   <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Mute / Unmute -->
-  <div class="mute-btn" id="muteBtn">💖</div>
+  <!-- MUSIC BUTTON -->
+  <div class="music-btn" onclick="toggleMusic()">💖</div>
 
-  <!-- Main Content -->
-  <div class="container">
-    <img src="rose-couple.jpg" alt="Rose Day">
-    <h1>Happy Rose Day Bubu 🌹</h1>
-    <p>
-      गुलाबाची गरज नाही मला,<br>
-      कारण तूच माझ्यासाठी<br>
-      पूर्ण गुलाबांची बाग आहेस ❤️
-    </p>
+  <!-- CONTENT -->
+  <div class="main">
+    <div class="card">
+      <img src="rose-couple.jpg" alt="Rose Couple">
+      <h1>Happy Rose Day Bubu 🌹</h1>
+      <div class="quote">
+        गुलाबाची गरज नाही मला,<br>
+        कारण तूच माझ्यासाठी<br>
+        पूर्ण गुलाबांचं बाग आहेस ❤️
+      </div>
+    </div>
   </div>
 
-  <!-- Tap for music -->
-  <div class="tap-hint">Tap once for music 🎶</div>
+  <div class="hint">Tap once for music 🎶</div>
 
-  <!-- 🌹 Floating Roses Script -->
+  <!-- FLOATING ROSES -->
   <script>
-    for (let i = 0; i < 20; i++) {
-      const rose = document.createElement("img");
+    const body = document.body;
+
+    for (let i = 0; i < 18; i++) {
+      let rose = document.createElement("img");
       rose.src = "rose.png";
       rose.className = "rose";
       rose.style.left = Math.random() * 100 + "vw";
-      rose.style.width = (35 + Math.random() * 25) + "px";
-      rose.style.animationDuration = (10 + Math.random() * 6) + "s";
-      rose.style.animationDelay = Math.random() * 6 + "s";
-      document.body.appendChild(rose);
+      rose.style.animationDuration = (8 + Math.random() * 6) + "s";
+      rose.style.width = (30 + Math.random() * 20) + "px";
+      body.appendChild(rose);
     }
 
     const music = document.getElementById("bgMusic");
-    const muteBtn = document.getElementById("muteBtn");
-    let started = false;
+    let isPlaying = false;
 
-    document.addEventListener("click", () => {
-      if (!started) {
+    function toggleMusic() {
+      if (!isPlaying) {
         music.play();
-        started = true;
-        document.querySelector(".tap-hint").style.display = "none";
+        isPlaying = true;
+      } else {
+        music.pause();
+        isPlaying = false;
+      }
+    }
+
+    document.body.addEventListener("click", () => {
+      if (!isPlaying) {
+        music.play();
+        isPlaying = true;
       }
     }, { once: true });
-
-    muteBtn.addEventListener("click", () => {
-      music.muted = !music.muted;
-      muteBtn.textContent = music.muted ? "🤍" : "💖";
-    });
   </script>
 
 </body>
